@@ -9,9 +9,9 @@ Vagrant.configure(2) do |config|
 
   # Load Balancer Node
   config.vm.define "loadbalancer" do |lb|
-    lb.vm.box = "bento/ubuntu-20.04"
+    lb.vm.box = "ubuntu/bionic64"
     lb.vm.hostname = "loadbalancer.example.com"
-    lb.vm.network "private_network", ip: "172.16.16.100"
+    lb.vm.network "private_network", ip: "192.168.56.100"
     lb.vm.provider "virtualbox" do |v|
       v.name = "loadbalancer"
       v.memory = 1024
@@ -24,9 +24,9 @@ Vagrant.configure(2) do |config|
   # Kubernetes Master Nodes
   (1..MasterCount).each do |i|
     config.vm.define "kmaster#{i}" do |masternode|
-      masternode.vm.box = "bento/ubuntu-20.04"
+      masternode.vm.box = "ubuntu/bionic64"
       masternode.vm.hostname = "kmaster#{i}.example.com"
-      masternode.vm.network "private_network", ip: "172.16.16.10#{i}"
+      masternode.vm.network "private_network", ip: "192.168.56.10#{i}"
       masternode.vm.provider "virtualbox" do |v|
         v.name = "kmaster#{i}"
         v.memory = 2048
@@ -40,9 +40,9 @@ Vagrant.configure(2) do |config|
   # Kubernetes Worker Nodes
   (1..NodeCount).each do |i|
     config.vm.define "kworker#{i}" do |workernode|
-      workernode.vm.box = "bento/ubuntu-20.04"
+      workernode.vm.box = "ubuntu/bionic64"
       workernode.vm.hostname = "kworker#{i}.example.com"
-      workernode.vm.network "private_network", ip: "172.16.16.20#{i}"
+      workernode.vm.network "private_network", ip: "192.168.56.20#{i}"
       workernode.vm.provider "virtualbox" do |v|
         v.name = "kworker#{i}"
         v.memory = 1024
@@ -52,3 +52,4 @@ Vagrant.configure(2) do |config|
   end
 
 end
+
